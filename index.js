@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isJumping = false;
     let jumpHeight = 0;
     let score = 0;
-    let speed = 20; // Initial speed for cactus movement
-    let cactusInterval = 2000; // Initial time interval for creating cacti
-    let gameLoop;
 
     function jump() {
         if (isJumping) return;
@@ -29,10 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 20);
     }
 
+    // Keyboard support for jumping
     document.addEventListener('keydown', (e) => {
         if (e.code === 'Space' || e.code === 'ArrowUp') {
             jump();
         }
+    });
+
+    // Touch support for mobile devices
+    game.addEventListener('touchstart', () => {
+        jump();
     });
 
     function createCactus() {
@@ -48,14 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 cactus.remove();
                 score++;
                 scoreDisplay.textContent = `Score: ${score}`;
-
-                // Increase speed and reduce interval after reaching a score of 5
-                if (score === 5) {
-                    speed -= 5; // Increase cactus movement speed
-                    cactusInterval -= 500; // Reduce time interval for creating cacti
-                    clearInterval(gameLoop); // Clear existing cactus creation loop
-                    startGameLoop(); // Start a new loop with updated interval
-                }
             } else if (
                 cactusPosition < dino.offsetLeft + dino.offsetWidth &&
                 cactusPosition + 30 > dino.offsetLeft &&
@@ -65,15 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`Game Over! Your Score: ${score}`);
                 location.reload();
             }
-            cactusPosition -= (30 - speed); // Adjust cactus movement based on speed
+            cactusPosition -= 5;
             cactus.style.left = cactusPosition + 'px';
-        }, speed);
+        }, 20);
     }
 
-    function startGameLoop() {
-        gameLoop = setInterval(createCactus, cactusInterval);
-    }
-
-    // Start the game loop
-    startGameLoop();
+    setInterval(createCactus, 2000);
 });
