@@ -5,43 +5,43 @@ document.addEventListener('DOMContentLoaded', () => {
     let isJumping = false;
     let jumpHeight = 0;
     let score = 0;
-    let cactusSpeed = 5; // Initial cactus speed (movement per interval)
+    let cactusSpeed = 5; 
 
     function jump() {
-        if (isJumping) return; // Prevent multiple jumps at the same time
+        if (isJumping) return; 
         isJumping = true;
         let upInterval = setInterval(() => {
-            if (jumpHeight >= 150) { // Maximum jump height
+            if (jumpHeight >= 150) { 
                 clearInterval(upInterval);
                 let downInterval = setInterval(() => {
-                    if (jumpHeight <= 0) { // Dino lands
+                    if (jumpHeight <= 0) {
                         clearInterval(downInterval);
                         isJumping = false;
                     }
-                    jumpHeight -= 5; // Dino comes down
-                    dino.style.bottom = jumpHeight + 10 + 'px'; // Adjust bottom position
+                    jumpHeight -= 5; 
+                    dino.style.bottom = jumpHeight + 10 + 'px'; 
                 }, 20);
             }
-            jumpHeight += 5; // Dino goes up
+            jumpHeight += 5; 
             dino.style.bottom = jumpHeight + 10 + 'px';
         }, 20);
     }
 
-    // Keyboard support for desktops
+   
     document.addEventListener('keydown', (e) => {
         if (e.code === 'Space' || e.code === 'ArrowUp') {
             jump();
         }
     });
 
-    // Touch support for mobile devices
+    
     game.addEventListener('touchstart', () => {
         jump();
     });
 
     function createCactus() {
         const cactus = document.createElement('img');
-        cactus.src = 'download__2_-removebg-preview.png'; // Path to cactus image
+        cactus.src = 'download__2_-removebg-preview.png'; 
         cactus.classList.add('cactus');
         game.appendChild(cactus);
         let cactusPosition = game.offsetWidth;
@@ -53,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 score++;
                 scoreDisplay.textContent = `Score: ${score}`;
 
-                // Increase speed after 5 scores
+                
                 if (score >= 5) {
-                    cactusSpeed = 8; // Increase cactus speed after 5 scores
+                    cactusSpeed = 8; 
                 }
             } else if (
                 cactusPosition < dino.offsetLeft + dino.offsetWidth &&
@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`Game Over! Your Score: ${score}`);
                 location.reload();
             }
-            cactusPosition -= cactusSpeed; // Move cactus at dynamic speed
+            cactusPosition -= cactusSpeed; 
             cactus.style.left = cactusPosition + 'px';
         }, 20);
     }
 
-    // Create a new cactus every 2 seconds
+    
     setInterval(createCactus, 2000);
 });

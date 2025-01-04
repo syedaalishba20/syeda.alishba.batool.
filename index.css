@@ -1,3 +1,4 @@
+/***************/
 body {
     margin: 0;
     overflow: hidden;
@@ -58,8 +59,9 @@ body {
     transform: translateX(-50%);
     font-size: 20px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5); /* Optional: Adds a semi-transparent background */
-    color: white; /* Makes the text stand out */
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white; 
     padding: 5px 10px;
-    border-radius: 5px; /* Optional: Adds rounded corners */
+    border-radius: 5px; 
 }
+/***********************/
